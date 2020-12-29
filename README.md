@@ -1,1 +1,1 @@
-# StockPredictor
+# StockPricePredictor
