@@ -86,7 +86,7 @@ closing_price = model.predict(x_test)
 closing_price = scaler.inverse_transform(closing_price)
 
 #rmse(root mean sqaure error)
-rms = np.sqrt(np.mean(np.power(y_test- closing_price, 2)))
+rms = np.sqrt(np.mean(np.power(y_test - closing_price, 2)))
 print(rms)
 
 #plotting the graph
@@ -97,6 +97,36 @@ valid['Prediction'] = closing_price
 plt.plot(train["Close"])
 plt.plot(valid[["Close", "Prediction"]])
 
+
+#predicting future values
+
+#Get teh last 60 day closing price 
+last_60_days = new_df[-60:].values
+#Scale the data to be values between 0 and 1
+last_60_days_scaled = scaler.transform(last_60_days)
+#Create an empty list
+X_test = []
+#Append teh past 60 days
+X_test.append(last_60_days_scaled)
+#Convert the X_test data set to a numpy array
+X_test = np.array(X_test)
+#Reshape the data
+X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 1))
+#Get the predicted scaled price
+pred_price = model.predict(X_test)
+price = pred_price
+
+#undo the scaling 
+pred_price = scaler.inverse_transform(pred_price)
+print(pred_price)
+
+for i in range(1, 10):
+    X_test[0][0 : 59] = X_test[0][1 : 60]
+    X_test[0][59] = price
+    pred_price = model.predict(X_test)
+    price = pred_price
+    pred_price = scaler.inverse_transform(pred_price)
+    print(pred_price)
 
 
 
