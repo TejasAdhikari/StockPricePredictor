@@ -1,16 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec 28 23:02:41 2020
-
-@author: User
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Dec 27 14:57:36 2020
-
-@author: User
-"""
 #Installing required pakagess
 import math
 import pandas as pd
